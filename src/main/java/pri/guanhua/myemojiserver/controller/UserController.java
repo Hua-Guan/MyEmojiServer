@@ -1,10 +1,8 @@
 package pri.guanhua.myemojiserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pri.guanhua.myemojiserver.UserConst;
 import pri.guanhua.myemojiserver.dao.UserDao;
 import pri.guanhua.myemojiserver.entity.User;
 import pri.guanhua.myemojiserver.service.UserService;
@@ -15,17 +13,17 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserDao userDao;
-    @Autowired
     UserService userService;
-    @RequestMapping("user")
-    public List<User> userList(){
-        return userDao.findAll();
+
+    @PostMapping(UserConst.USER_LOGIN_OR_REGISTER)
+    public String canUserLogin(@RequestParam("uaccount") String uaccount,
+                                   @RequestParam("upassword") String upassword){
+        return userService.YesOrNo(uaccount, upassword);
     }
 
-    @GetMapping("getUser")
-    public User getUserById(@RequestParam("id") String id){
-        return userService.getUserById(Integer.valueOf(id));
+    @GetMapping("test")
+    public void test(){
+        userService.test();
     }
 
 }

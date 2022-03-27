@@ -3,6 +3,6 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/my_emoji?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
+    url: jdbc:mysql://8.142.134.74:3306/emoji?characterEncoding=UTF-8&serverTimezone=UTC
+    username: emoji_admin
     password: 123456
