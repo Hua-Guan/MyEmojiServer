@@ -3,6 +3,7 @@ package pri.guanhua.myemojiserver.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import pri.guanhua.myemojiserver.UserConst;
 import pri.guanhua.myemojiserver.dao.UserDao;
 import pri.guanhua.myemojiserver.entity.User;
 
@@ -14,16 +15,27 @@ public class UserService {
     UserDao userDao;
 
     /**
-     * 如果用户密码错误则返回“NO”，如果用户账号不存在则直接注册，返回“YES”。
+     * 如果用户密码错误则返回“USER_PASSWORD_MISTAKE”，
+     * 如果用户账号不存在则返回“USER_ACCOUNT_NOT_EXIST”，
+     * 如果账号和密码都正确则返回“USER_LOGIN_SUCCESS”。
      */
-    public String YesOrNo(String userAccount, String userPassword){
+    public String verifyAccount(String userAccount, String userPassword){
         User user = userDao.findUserByuaccount(userAccount);
         if (user != null){
             if (user.getUpassword().equals(userPassword)){
-                return "YES";
+                return UserConst.USER_LOGIN_SUCCESS;
             }else {
-                return "NO";
+                return UserConst.USER_PASSWORD_MISTAKE;
             }
+        }else {
+            return UserConst.USER_ACCOUNT_NOT_EXIST;
+        }
+    }
+
+    public String registerAccount(String userAccount, String userPassword){
+        User user = userDao.findUserByuaccount(userAccount);
+        if (user != null){
+            return UserConst.USER_REGISTER_ALREADY_EXIST;
         }else {
             User newUser = new User();
             newUser.setUaccount(userAccount);
@@ -32,7 +44,7 @@ public class UserService {
             String s = DigestUtils.md5DigestAsHex(userPassword.getBytes(StandardCharsets.UTF_8));
             newUser.setUpassword(s);
             userDao.save(newUser);
-            return "YES";
+            return UserConst.USER_REGISTER_SUCCESS;
         }
     }
 

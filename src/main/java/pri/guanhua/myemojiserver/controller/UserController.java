@@ -15,10 +15,16 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(UserConst.USER_LOGIN_OR_REGISTER)
+    @PostMapping(UserConst.USER_LOGIN)
     public String canUserLogin(@RequestParam("uaccount") String uaccount,
                                    @RequestParam("upassword") String upassword){
-        return userService.YesOrNo(uaccount, upassword);
+        return userService.verifyAccount(uaccount, upassword);
+    }
+
+    @PostMapping(UserConst.USER_REGISTER)
+    public String register(@RequestParam("uaccount") String uaccount,
+                           @RequestParam("upassword") String upassword){
+        return userService.registerAccount(uaccount, upassword);
     }
 
     @GetMapping("test")
