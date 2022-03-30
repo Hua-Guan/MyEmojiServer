@@ -20,9 +20,11 @@ public class UserService {
      * 如果账号和密码都正确则返回“USER_LOGIN_SUCCESS”。
      */
     public String verifyAccount(String userAccount, String userPassword){
+        //将密码加密为MD5
+        String md5Password = DigestUtils.md5DigestAsHex(userPassword.getBytes(StandardCharsets.UTF_8));
         User user = userDao.findUserByuaccount(userAccount);
         if (user != null){
-            if (user.getUpassword().equals(userPassword)){
+            if (user.getUpassword().equals(md5Password)){
                 return UserConst.USER_LOGIN_SUCCESS;
             }else {
                 return UserConst.USER_PASSWORD_MISTAKE;
