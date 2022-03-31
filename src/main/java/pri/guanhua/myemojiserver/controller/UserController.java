@@ -3,6 +3,7 @@ package pri.guanhua.myemojiserver.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pri.guanhua.myemojiserver.UserConst;
 import pri.guanhua.myemojiserver.dao.UserDao;
 import pri.guanhua.myemojiserver.entity.User;
@@ -13,6 +14,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.List;
 
 @RestController
@@ -55,6 +57,21 @@ public class UserController {
             os.flush();
         }
         os.close();
+    }
+
+    /**
+     * 上传头像
+     */
+    @PostMapping(UserConst.USER_UPLOAD_AVATAR)
+    @ResponseBody
+    public void upLoadAvatar(@RequestPart MultipartFile file) throws Exception{
+        String filePath = "E:\\" + "user_avatar.jpg";
+        File dest = new File(filePath);
+        if (dest.exists()){
+            dest.delete();
+            dest = new File(filePath);
+        }
+        Files.copy(file.getInputStream(), dest.toPath());
     }
 
     @GetMapping("test")
