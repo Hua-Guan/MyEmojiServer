@@ -41,22 +41,10 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping(UserConst.USER_DEFAULT_AVATAR)
-    public void getAvatar(HttpServletResponse response) throws Exception{
-        File file = ResourceUtils.getFile("classpath:static/paimeng.jpg");
-        response.reset();
-        response.setContentType("application/octet-stream");
-        response.setCharacterEncoding("utf-8");
-        response.setContentLength((int)file.length());
-        response.setHeader("Content-Disposition", "attachment;filename=paimeng.jpg");
-        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-        byte[] buff = new byte[1024];
-        OutputStream os = response.getOutputStream();
-        int i = 0 ;
-        while ((i = bis.read(buff)) != -1){
-            os.write(buff, 0, i);
-            os.flush();
-        }
-        os.close();
+    @ResponseBody
+    public void getAvatar(HttpServletResponse response,
+                          @RequestParam(UserConst.USER_ACCOUNT) String account) throws Exception{
+        userService.getAvatar(response, account);
     }
 
     /**
@@ -64,14 +52,9 @@ public class UserController {
      */
     @PostMapping(UserConst.USER_UPLOAD_AVATAR)
     @ResponseBody
-    public void upLoadAvatar(@RequestPart MultipartFile file) throws Exception{
-        String filePath = "E:\\" + "user_avatar.jpg";
-        File dest = new File(filePath);
-        if (dest.exists()){
-            dest.delete();
-            dest = new File(filePath);
-        }
-        Files.copy(file.getInputStream(), dest.toPath());
+    public void upLoadAvatar(@RequestPart MultipartFile file,
+                             @RequestParam(UserConst.USER_ACCOUNT) String account) throws Exception{
+        userService.uploadUserAvatar(file, account);
     }
 
     @GetMapping("test")
