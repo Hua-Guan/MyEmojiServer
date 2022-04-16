@@ -1,21 +1,12 @@
 package pri.guanhua.myemojiserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pri.guanhua.myemojiserver.UserConst;
-import pri.guanhua.myemojiserver.dao.UserDao;
-import pri.guanhua.myemojiserver.entity.User;
 import pri.guanhua.myemojiserver.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.util.List;
 
 @RestController
 public class UserController {
@@ -23,12 +14,24 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     * 根据用户的用户名和密码判断用户是否能登入
+     * @param uaccount
+     * @param upassword
+     * @return
+     */
     @PostMapping(UserConst.USER_LOGIN)
     public String canUserLogin(@RequestParam("uaccount") String uaccount,
                                    @RequestParam("upassword") String upassword){
         return userService.verifyAccount(uaccount, upassword);
     }
 
+    /**
+     * 注册
+     * @param uaccount
+     * @param upassword
+     * @return
+     */
     @PostMapping(UserConst.USER_REGISTER)
     public String register(@RequestParam("uaccount") String uaccount,
                            @RequestParam("upassword") String upassword){

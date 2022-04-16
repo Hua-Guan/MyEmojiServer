@@ -10,12 +10,8 @@ import pri.guanhua.myemojiserver.dao.UserDao;
 import pri.guanhua.myemojiserver.entity.User;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 @Service
 public class UserService {
@@ -89,15 +85,23 @@ public class UserService {
      * @param file
      * @param account
      */
-    public void uploadUserAvatar(MultipartFile file, String account) throws Exception{
+    public void uploadUserAvatar(MultipartFile file, String account) throws IOException {
         //上传头像
         String filePath = UserConst.URL_AVATAR + "user_avatar_" + account + ".jpg";
         File dest = new File(filePath);
-        if (dest.exists()){
-            dest.delete();
-            dest = new File(filePath);
+        InputStream inputStream = file.getInputStream();
+        OutputStream outputStream = new FileOutputStream(dest);
+
+        byte[] buffer = new byte[1024];
+
+        int length;
+        while ((length = inputStream.read(buffer)) > 0){
+            outputStream.write(buffer, 0, length);
+            outputStream.flush();
         }
-        Files.copy(file.getInputStream(), dest.toPath());
+        inputStream.close();
+        outputStream.close();
+
         //更新数据库
         User user = userDao.findUserByuaccount(account);
         user.setUuri(filePath);

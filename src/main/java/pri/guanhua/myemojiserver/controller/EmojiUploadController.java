@@ -7,7 +7,9 @@ import pri.guanhua.myemojiserver.UserConst;
 import pri.guanhua.myemojiserver.service.EmojiUploadService;
 
 import java.io.File;
-import java.nio.file.Files;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 @RestController
 public class EmojiUploadController {
@@ -20,11 +22,17 @@ public class EmojiUploadController {
     public void uploadEmoji(@RequestPart MultipartFile file) throws Exception{
         String filePath = "D:\\AndroidProject\\Emojis\\" + file.getOriginalFilename() + ".jpg";
         File dest = new File(filePath);
-        if (dest.exists()){
-            dest.delete();
-            dest = new File(filePath);
+        OutputStream outputStream = new FileOutputStream(dest);
+        InputStream inputStream = file.getInputStream();
+
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) > 0){
+            outputStream.write(buffer, 0, length);
+            outputStream.flush();
         }
-        Files.copy(file.getInputStream(), dest.toPath());
+        inputStream.close();
+        outputStream.close();
     }
 
     @PostMapping(UserConst.USER_UPDATE_EMOJI)
