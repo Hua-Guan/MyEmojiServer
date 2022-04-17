@@ -6,6 +6,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pri.guanhua.myemojiserver.UserConst;
+import pri.guanhua.myemojiserver.dao.EmojiUploadDao;
 import pri.guanhua.myemojiserver.dao.UserDao;
 import pri.guanhua.myemojiserver.entity.User;
 
@@ -17,6 +18,9 @@ import java.nio.charset.StandardCharsets;
 public class UserService {
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    EmojiUploadDao emojiUploadDao;
 
     /**
      * 如果用户密码错误则返回“USER_PASSWORD_MISTAKE”，
@@ -106,6 +110,14 @@ public class UserService {
         User user = userDao.findUserByuaccount(account);
         user.setUuri(filePath);
         userDao.save(user);
+    }
+
+    /**
+     * 获取用户上传的表情包总数
+     * @return
+     */
+    public String getCloudEmojisCount(String account){
+        return String.valueOf(emojiUploadDao.countByEmojiUser(account));
     }
 
     public void test(){

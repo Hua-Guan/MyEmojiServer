@@ -16,9 +16,9 @@ public class UserController {
 
     /**
      * 根据用户的用户名和密码判断用户是否能登入
-     * @param uaccount
-     * @param upassword
-     * @return
+     * @param uaccount 用户名
+     * @param upassword 密码
+     * @return 返回登入状态
      */
     @PostMapping(UserConst.USER_LOGIN)
     public String canUserLogin(@RequestParam("uaccount") String uaccount,
@@ -28,9 +28,9 @@ public class UserController {
 
     /**
      * 注册
-     * @param uaccount
-     * @param upassword
-     * @return
+     * @param uaccount 用户名
+     * @param upassword 密码
+     * @return 返回注册状态
      */
     @PostMapping(UserConst.USER_REGISTER)
     public String register(@RequestParam("uaccount") String uaccount,
@@ -40,8 +40,8 @@ public class UserController {
 
     /**
      * 下载默认的头像
-     * @param response
-     * @throws Exception
+     * @param response 响应头，用于返回字节流
+     * @throws Exception 异常处理
      */
     @RequestMapping(UserConst.USER_DEFAULT_AVATAR)
     @ResponseBody
@@ -58,6 +58,16 @@ public class UserController {
     public void upLoadAvatar(@RequestPart MultipartFile file,
                              @RequestParam(UserConst.USER_ACCOUNT) String account) throws Exception{
         userService.uploadUserAvatar(file, account);
+    }
+
+    /**
+     * 获取用户上传的表情包总数
+     * @return 返回表情包总数
+     */
+    @PostMapping(UserConst.USER_EMOJIS_COUNT)
+    @ResponseBody
+    public String getCloudEmojisCount(@RequestParam(UserConst.USER_ACCOUNT) String account){
+        return userService.getCloudEmojisCount(account);
     }
 
     @GetMapping("test")
