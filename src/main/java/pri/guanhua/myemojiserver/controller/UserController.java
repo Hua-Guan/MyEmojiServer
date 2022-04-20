@@ -64,7 +64,7 @@ public class UserController {
      * 获取用户上传的表情包总数
      * @return 返回表情包总数
      */
-    @PostMapping(UserConst.USER_EMOJIS_COUNT)
+    @RequestMapping(UserConst.USER_EMOJIS_COUNT)
     @ResponseBody
     public String getCloudEmojisCount(@RequestParam(UserConst.USER_ACCOUNT) String account){
         return userService.getCloudEmojisCount(account);

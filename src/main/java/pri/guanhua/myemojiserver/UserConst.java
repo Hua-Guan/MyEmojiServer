@@ -28,4 +28,7 @@ public class UserConst {
     public static final String USER_EMOJIS_COUNT = "USER_EMOJIS_COUNT";
     public static final String USER_CLOUD_EMOJI = "USER_CLOUD_EMOJI";
     public static final String USER_CLOUD_EMOJI_BYTES = "USER_CLOUD_EMOJI_BYTES";
+    public static final String USER_EMOJI_MARKET = "USER_EMOJI_MARKET";
+    public static final String USER_MARKET_EMOJI_BYTES = "USER_MARKET_EMOJI_BYTES";
+    public static final String PATH_MARKET_EMOJI = "D:\\AndroidProject\\Emojis\\";
 }

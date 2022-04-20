@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pri.guanhua.myemojiserver.UserConst;
 import pri.guanhua.myemojiserver.bean.CloudEmojiBean;
-import pri.guanhua.myemojiserver.entity.Emoji;
 import pri.guanhua.myemojiserver.service.EmojiUploadService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ public class EmojiUploadController {
      * @param file 表情包file
      * @throws Exception 可能的异常
      */
-    @PostMapping(UserConst.USER_UPLOAD_EMOJIS)
+    @RequestMapping(UserConst.USER_UPLOAD_EMOJIS)
     @ResponseBody
     public void uploadEmoji(@RequestPart MultipartFile file,
                             @RequestParam(UserConst.USER_ACCOUNT) String account,
