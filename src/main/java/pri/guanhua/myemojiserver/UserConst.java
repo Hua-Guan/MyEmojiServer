@@ -1,7 +1,7 @@
 package pri.guanhua.myemojiserver;
 
 public class UserConst {
-    public static final String URL = "http://192.168.31.13:8080/";
+    public static final String URL = "http://emoji.itismyduty.xyz:8080/";
     public static final String USER_DATA = "USER_DATA";
     public static final String USER_LOGIN_STATE = "USER_LOGIN_STATE";
     public static final String USER_LOGIN_FALSE = "USER_LOGIN_FALSE";
@@ -23,12 +23,12 @@ public class UserConst {
     public static final String USER_UPDATE_EMOJI = "USER_UPDATE_EMOJI";
     public static final String USER_EMOJI_MD5 = "USER_EMOJI_MD5";
     public static final String USER_UPDATE_AVATAR = "USER_UPDATE_AVATAR";
-    public static final String URL_AVATAR = "D:\\AndroidProject\\Emojis\\";
-    public static final String PATH_CLOUD_EMOJI = "D:\\AndroidProject\\Emojis\\";
+    public static final String URL_AVATAR = "/home/emojis/";
+    public static final String PATH_CLOUD_EMOJI = "/home/emojis/";
     public static final String USER_EMOJIS_COUNT = "USER_EMOJIS_COUNT";
     public static final String USER_CLOUD_EMOJI = "USER_CLOUD_EMOJI";
     public static final String USER_CLOUD_EMOJI_BYTES = "USER_CLOUD_EMOJI_BYTES";
     public static final String USER_EMOJI_MARKET = "USER_EMOJI_MARKET";
     public static final String USER_MARKET_EMOJI_BYTES = "USER_MARKET_EMOJI_BYTES";
-    public static final String PATH_MARKET_EMOJI = "D:\\AndroidProject\\Emojis\\";
+    public static final String PATH_MARKET_EMOJI = "/home/emojis/";
 }
