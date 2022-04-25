@@ -1,6 +1,8 @@
 package pri.guanhua.myemojiserver.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ResourceUtils;
@@ -63,8 +65,10 @@ public class UserService {
      */
     public void getAvatar(HttpServletResponse response, String account) throws Exception{
         File file;
-        if ("classpath:static/paimeng.jpg".equals(account)) {
-            file = ResourceUtils.getFile("classpath:static/paimeng.jpg");
+        User user = userDao.findUserByuaccount(account);
+        String uuri = user.getUuri();
+        if ("classpath:static/paimeng.jpg".equals(uuri)) {
+            file = new File("/opt/static/paimeng.jpg");
         }else {
             file = new File(UserConst.URL_AVATAR + "user_avatar_" + account + ".jpg");
         }
